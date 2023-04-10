@@ -26,13 +26,13 @@ def pregunta_01():
    Rta/
    214
    """
-    total = 0
+    c=[]
     with open('data.csv', 'r') as csvfile:
         csvreader = csv.reader(csvfile)
-        next(csvreader)
         for row in csvreader:
-            total += int(row[1])
-    return total
+            c.append(int(row[0][2]))
+    return sum(c)
+
 
 def pregunta_02():
     """

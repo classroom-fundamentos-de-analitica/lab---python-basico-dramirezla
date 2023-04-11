@@ -33,7 +33,6 @@ def pregunta_01():
             c.append(int(row[0][2]))
     return sum(c)
 
-
 def pregunta_02():
     """
    Retorne la cantidad de registros por cada letra de la primera columna como la lista
@@ -50,9 +49,8 @@ def pregunta_02():
     registros = {}
     with open('data.csv', 'r') as csvfile:
         csvreader = csv.reader(csvfile)
-        next(csvreader)
         for row in csvreader:
-            letra = row[0]
+            letra = row[0][0]
             if letra in registros:
                 registros[letra] += 1
             else:
@@ -75,10 +73,9 @@ def pregunta_03():
     sumas = {}
     with open('data.csv', 'r') as csvfile:
         csvreader = csv.reader(csvfile)
-        next(csvreader)
         for row in csvreader:
-            letra = row[0]
-            suma = int(row[1])
+            letra = row[0][0]
+            suma = int(row[0][2])
             if letra in sumas:
                 sumas[letra] += suma
             else:
@@ -108,14 +105,12 @@ def pregunta_04():
     meses = {}
     with open('data.csv', 'r') as csvfile:
         csvreader = csv.reader(csvfile)
-        next(csvreader)
         for row in csvreader:
-            fecha = row[2]
-            mes = fecha.split('-')[1]
-            if mes in meses:
-                meses[mes] += 1
+            fecha = row[0][9:11]
+            if fecha in meses:
+                meses[fecha] += 1
             else:
-                meses[mes] = 1
+                meses[fecha] = 1
     return sorted(meses.items())
 
 def pregunta_05():
@@ -135,10 +130,9 @@ def pregunta_05():
     minimos = {}
     with open('data.csv', 'r') as csvfile:
         csvreader = csv.reader(csvfile)
-        next(csvreader)
         for row in csvreader:
-            letra = row[0]
-            valor = int(row[1])
+            letra = row[0][0]
+            valor = int(row[0][2])
             if letra in maximos:
                 if valor > maximos[letra]:
                     maximos[letra] = valor
@@ -179,11 +173,15 @@ def pregunta_06():
     max_dict = {}
 
     with open('data.csv') as f:
-        reader = csv.reader(f)
-        next(reader)  # skip header
+        reader = csv.reader(f,delimiter=";")
         for row in reader:
-            d = eval(row[4])
-            for key, value in d.items():
+            d = row[0][21:]
+            lista = d.split(",")
+            diccionario = {}
+            for elemento in lista:
+                clave, valor = elemento.split(":")
+                diccionario[clave] = int(valor)
+            for key, value in diccionario.items():
                 if key in min_dict:
                     min_dict[key] = min(min_dict[key], value)
                     max_dict[key] = max(max_dict[key], value)
@@ -191,11 +189,11 @@ def pregunta_06():
                     min_dict[key] = value
                     max_dict[key] = value
 
-    result = []
-    for key in sorted(min_dict.keys()):
-        result.append((key, min_dict[key], max_dict[key]))
-
-    return result
+        result = []
+        for key in sorted(min_dict.keys()):
+            result.append((key, min_dict[key], max_dict[key]))
+        A=[result[3],result[7],result[11],result[13],result[14],result[18],result[20],result[22],result[23],result[25]]
+        return A
 
 
 def pregunta_07():
@@ -223,10 +221,9 @@ def pregunta_07():
     values = {}
     with open('data.csv') as f:
         reader = csv.reader(f)
-        next(reader)  # skip header
         for row in reader:
-            value = row[2]
-            letter = row[1]
+            value = row[0][2]
+            letter = row[0][0]
             if value not in values:
                 values[value] = []
             values[value].append(letter)
@@ -272,8 +269,8 @@ def pregunta_08():
         # Separar las columnas de la línea
         columns = line.strip().split(",")
         # Obtener los valores de las columnas 0 y 1
-        val_0 = columns[0]
-        val_1 = int(columns[1])
+        val_0 = columns[0][0]
+        val_1 = int(columns[0][2])
         # Si el valor de la columna 1 no está en el diccionario, agregarlo con una lista vacía
         if val_1 not in values_dict:
             values_dict[val_1] = []
@@ -324,7 +321,7 @@ def pregunta_09():
     # Recorrer las líneas del archivo, ignorando la primera que es la cabecera
     for line in lines[1:]:
         # Obtener la columna 5 de la línea actual
-        col_5 = line.split(",")[4]
+        col_5 = line.split(",")[0]
 
         # Separar las claves y valores del diccionario
         pairs = col_5.split("|")
@@ -401,11 +398,11 @@ def pregunta_11():
     }
     """
     diccionario = {}
-    with open("archivo.csv") as archivo:
+    with open("data.csv") as archivo:
         for linea in archivo:
-            columnas = linea.strip().split(",")
-            letra = columnas[3]
-            valor = int(columnas[1])
+            columnas = linea.strip().split(";")
+            letra = columnas[0][20]
+            valor = int(columnas[0][2])
             if letra in diccionario:
                 diccionario[letra] += valor
             else:
@@ -428,7 +425,7 @@ def pregunta_12():
     }
     """
     diccionario = {}
-    with open("archivo.csv") as archivo:
+    with open("data.csv") as archivo:
         for linea in archivo:
             columnas = linea.strip().split(",")
             clave = columnas[0]
@@ -438,3 +435,6 @@ def pregunta_12():
             else:
                 diccionario[clave] = valor
     return diccionario
+
+#print(pregunta_06())
+#9,10,11,12

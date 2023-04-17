@@ -390,18 +390,28 @@ def pregunta_11():
         "g": 35,
     }
     """
-    diccionario = {}
-    with open("data.csv") as archivo:
-        for linea in archivo:
-            columnas = linea.strip().split(";")
-            letra = columnas[0][20]
-            valor = int(columnas[0][2])
-            if letra in diccionario:
-                diccionario[letra] += valor
-            else:
-                diccionario[letra] = valor
-    diccionario_ordenado = dict(sorted(diccionario.items()))
-    return diccionario_ordenado
+    diccionario = {"a":0,"b":0,"c":0,"d":0,"e":0,"f":0,"g":0}
+    with open("data.csv","r") as archivo:
+        lines=archivo.readlines()
+        for row in lines:
+            separador=row.split()
+            trasnf=int(separador[1])
+            if("a" in separador[3]):
+                diccionario["a"]+=trasnf
+            if("b" in separador[3]):
+                diccionario["b"]+=trasnf
+            if("c" in separador[3]):
+                diccionario["c"]+=trasnf
+            if("d" in separador[3]):
+                diccionario["d"]+=trasnf
+            if("e" in separador[3]):
+                diccionario["e"]+=trasnf
+            if("f" in separador[3]):
+                diccionario["f"]+=trasnf
+            if("g" in separador[3]):
+                diccionario["g"]+=trasnf
+                
+    return diccionario
 
 
 def pregunta_12():
@@ -417,16 +427,30 @@ def pregunta_12():
         'E': 324
     }
     """
-    diccionario = {}
-    with open("data.csv") as archivo:
-        for linea in archivo:
-            columnas = linea.strip().split(",")
-            clave = columnas[0]
-            valor = int(columnas[4])
-            if clave in diccionario:
-                diccionario[clave] += valor
-            else:
-                diccionario[clave] = valor
+    diccionario = {"A":0,"B":0,"C":0,"D":0,"E":0}
+    with open("data.csv","r") as archivo:
+        lines=archivo.readlines()
+        for row in lines:
+            separador=row.split()
+            if(separador[0]=="A"):
+                suma = 0
+                suma = sum(int(valor) for clave, valor in (elemento.split(":") for elemento in separador[4].split(",")))
+                diccionario["A"]+=suma
+            if(separador[0]=="B"):
+                suma = 0
+                suma = sum(int(valor) for clave, valor in (elemento.split(":") for elemento in separador[4].split(",")))
+                diccionario["B"]+=suma
+            if(separador[0]=="C"):
+                suma = 0
+                suma = sum(int(valor) for clave, valor in (elemento.split(":") for elemento in separador[4].split(",")))
+                diccionario["C"]+=suma
+            if(separador[0]=="D"):
+                suma = 0
+                suma = sum(int(valor) for clave, valor in (elemento.split(":") for elemento in separador[4].split(",")))
+                diccionario["D"]+=suma
+            if(separador[0]=="E"):
+                suma = 0
+                suma = sum(int(valor) for clave, valor in (elemento.split(":") for elemento in separador[4].split(",")))
+                diccionario["E"]+=suma
+                                
     return diccionario
-
-

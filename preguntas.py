@@ -312,31 +312,46 @@ def pregunta_09():
 
     """
     # Inicializar el diccionario que se va a retornar
-    count_dict = {}
+    count_dict = {
+        "aaa": 0,
+        "bbb": 0,
+        "ccc": 0,
+        "ddd": 0,
+        "eee": 0,
+        "fff": 0,
+        "ggg": 0,
+        "hhh": 0,
+        "iii": 0,
+        "jjj": 0,
+    }
 
     # Abrir el archivo y leer las líneas
     with open("data.csv", "r") as f:
         lines = f.readlines()
 
     # Recorrer las líneas del archivo, ignorando la primera que es la cabecera
-    for line in lines[1:]:
-        # Obtener la columna 5 de la línea actual
-        col_5 = line.split(",")[0]
-
-        # Separar las claves y valores del diccionario
-        pairs = col_5.split("|")
-
-        # Recorrer los pares clave-valor y actualizar el diccionario
-        for pair in pairs:
-            key, value = pair.split(":")
-            # Si la clave ya está en el diccionario, sumarle 1 a su valor
-            if key in count_dict:
-                count_dict[key] += 1
-            # Si no está, crear la clave con valor 1
-            else:
-                count_dict[key] = 1
-
-    # Retornar el diccionario de conteo
+    for row in lines:
+        if("aaa" in row):
+            count_dict["aaa"]+=1
+        if("bbb" in row):
+            count_dict["bbb"]+=1
+        if("ccc" in row):
+            count_dict["ccc"]+=1
+        if("ddd" in row):
+            count_dict["ddd"]+=1
+        if("eee" in row):
+            count_dict["eee"]+=1
+        if("fff" in row):
+            count_dict["fff"]+=1
+        if("ggg" in row):
+            count_dict["ggg"]+=1
+        if("hhh" in row):
+            count_dict["hhh"]+=1
+        if("iii" in row):
+            count_dict["iii"]+=1
+        if("jjj" in row):
+            count_dict["jjj"]+=1
+            
     return count_dict
 
 

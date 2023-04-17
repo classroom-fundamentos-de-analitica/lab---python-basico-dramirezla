@@ -370,10 +370,9 @@ def pregunta_10():
         lines=f.readlines()
         for row in lines:
             separado=row.split()
-            respuesta.append((separado[0],len(separado[3].split(",")),len(separado[4].split(""))))
+            respuesta.append((separado[0],len(separado[3].split(",")),len(separado[4].split(","))))
 
-
-    return separado
+    return respuesta
 
 
 def pregunta_11():

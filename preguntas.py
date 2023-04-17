@@ -173,8 +173,7 @@ def pregunta_06():
     dict_valores = {chr(i)+chr(j)+chr(k): [float('inf'), float('-inf')] for i in range(97, 123) for j in range(97, 123) for k in range(97, 123)}
     
     
-    with open("data.csv", "r") as archivo:
-        next(archivo)  
+    with open("data.csv", "r") as archivo:  
         for linea in archivo:
             campos = linea.strip().split()
             claves_valores = campos[4].split(",")
@@ -189,6 +188,7 @@ def pregunta_06():
     resultado.sort()
     
     return resultado
+
 
 def pregunta_07():
     """
@@ -348,7 +348,6 @@ def pregunta_09():
             
     return count_dict
 
-
 def pregunta_10():
     """
     Retorne una lista de tuplas contengan por cada tupla, la letra de la columna 1 y la
@@ -371,9 +370,10 @@ def pregunta_10():
         lines=f.readlines()
         for row in lines:
             separado=row.split()
-            respuesta.append((separado[0],len(separado[3].split(",")),len(separado[4].split(","))))
+            respuesta.append((separado[0],len(separado[3].split(",")),len(separado[4].split(""))))
 
-    return respuesta
+
+    return separado
 
 
 def pregunta_11():
@@ -430,5 +430,4 @@ def pregunta_12():
                 diccionario[clave] = valor
     return diccionario
 
-#print(pregunta_06())
-#9,10,11,12
+

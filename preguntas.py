@@ -169,32 +169,26 @@ def pregunta_06():
     ]
 
     """
-    min_dict = {}
-    max_dict = {}
 
-    with open('data.csv') as f:
-        reader = csv.reader(f,delimiter=";")
-        for row in reader:
-            d = row[0][21:]
-            lista = d.split(",")
-            diccionario = {}
-            for elemento in lista:
-                clave, valor = elemento.split(":")
-                diccionario[clave] = int(valor)
-            for key, value in diccionario.items():
-                if key in min_dict:
-                    min_dict[key] = min(min_dict[key], value)
-                    max_dict[key] = max(max_dict[key], value)
-                else:
-                    min_dict[key] = value
-                    max_dict[key] = value
+    dict_valores = {chr(i)+chr(j)+chr(k): [float('inf'), float('-inf')] for i in range(97, 123) for j in range(97, 123) for k in range(97, 123)}
+    
+    
+    with open("data.csv", "r") as archivo:
+        next(archivo)  
+        for linea in archivo:
+            campos = linea.strip().split()
+            claves_valores = campos[4].split(",")
+            for clave_valor in claves_valores:
+                clave, valor = clave_valor.split(":")
+                valor = int(valor)
+                dict_valores[clave][0] = min(dict_valores[clave][0], valor)
+                dict_valores[clave][1] = max(dict_valores[clave][1], valor)
 
-        result = []
-        for key in sorted(min_dict.keys()):
-            result.append((key, min_dict[key], max_dict[key]))
-        A=[result[3],result[7],result[11],result[13],result[14],result[18],result[20],result[22],result[23],result[25]]
-        return A
-
+    
+    resultado = [(clave, dict_valores[clave][0], dict_valores[clave][1]) for clave in dict_valores if dict_valores[clave][0] != float('inf')]
+    resultado.sort()
+    
+    return resultado
 
 def pregunta_07():
     """

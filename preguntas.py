@@ -365,30 +365,16 @@ def pregunta_10():
         ("E", 3, 3),
     ]
     """
-    # Leer el archivo CSV y guardar los datos en una lista de listas
+    
+    respuesta=[]
     with open('data.csv', 'r') as f:
-        data = [line.strip().split(',') for line in f]
+        lines=f.readlines()
+        for row in lines:
+            separado=row.split()
+            respuesta.append((separado[0],len(separado[3].split(",")),len(separado[4].split(""))))
 
-    # Obtener las columnas 1, 4 y 5
-    col1 = [row[1] for row in data]
-    col4 = [row[4] for row in data]
-    col5 = [row[5] for row in data]
 
-    # Crear un diccionario que almacene la cantidad de elementos de las columnas 4 y 5 para cada letra de la columna 1
-    result_dict = {}
-    for i, letter in enumerate(col1):
-        if letter not in result_dict:
-            result_dict[letter] = [0, 0]
-        result_dict[letter][0] += len(col4[i])
-        result_dict[letter][1] += len(col5[i])
-
-    # Crear una lista de tuplas a partir del diccionario
-    result = [(key, value[0], value[1]) for key, value in result_dict.items()]
-
-    # Ordenar la lista por la letra de la columna 1
-    result.sort()
-
-    return result
+    return separado
 
 
 def pregunta_11():
